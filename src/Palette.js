@@ -28,4 +28,5 @@ class Palette extends Component {
     }
 }
 
+//padding comment for now
 export default Palette;
