@@ -24,10 +24,10 @@
     height: 8px;
 }
 
-rc-slider-handle,
-rc-slider-handle:active,
-rc-slider-handle:focus,
-rc-slider-handle:hover {
+.rc-slider-handle,
+.rc-slider-handle:active,
+.rc-slider-handle:focus,
+.rc-slider-handle:hover {
     background-color: green;
     outline: none;
     border: 2px solid green;
