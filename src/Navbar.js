@@ -1,4 +1,6 @@
-
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import "./Palette.css";
 import React, { Component } from 'react'
 
 export default class Navbar extends Component {
@@ -6,9 +8,15 @@ export default class Navbar extends Component {
         return (
             <header className="Navbar">
                 <div className="logo">
-                    <a href="/"></a>
+                    <a href="/">reactcolorpicker</a>
                 </div>
-                
+                <Slider
+                    defaultValue={level}
+                    min={100}
+                    max={900}
+                    step={100}
+                    onAfterChange={this.changeLevel}
+          />
             </header>
         )
     }

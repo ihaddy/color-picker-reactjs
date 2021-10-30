@@ -3,7 +3,7 @@ import ColorBox from "./ColorBox";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Palette.css";
-
+import Navbar from "./Navbar";
 class Palette extends Component {
   constructor(props) {
     super(props);
