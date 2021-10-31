@@ -1,7 +1,10 @@
 import Slider from "rc-slider";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import "rc-slider/assets/index.css";
 import "./Palette.css";
 import "./Navbar.css"
+
 import React, { Component } from 'react'
 
 export default class Navbar extends Component {
@@ -23,6 +26,13 @@ export default class Navbar extends Component {
                     onAfterChange={changeLevel}
                 />
             </div>
+            </div>
+            <div className="select-container">
+                <Select>
+                    <MenuItem value="hex">HEX - </MenuItem>
+                    <MenuItem value= "rgb">rgb - </MenuItem>
+                    <MenuItem value="rgba">rgba - </MenuItem>
+                </Select>
             </div>
             </header>
         )
