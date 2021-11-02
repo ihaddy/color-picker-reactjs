@@ -14,6 +14,7 @@ export default class Navbar extends Component {
     super(props);
     this.state = { format: "hex", open: "true" };
     this.handleChange = this.handleChange.bind(this);
+    this.closeSnackbar = this.closeSnackbar.bind(this)
   }
   handleChange(e) {
     this.setState({ format: e.target.value });
@@ -21,6 +22,9 @@ export default class Navbar extends Component {
     //therefore using e.target.value that we just passed in for state is more immediate and prevents having to use a callback function
     // to wrap the this.props.handlechange in a setimeout
     this.props.handleChange(e.target.value);
+  }
+  closeSnackbar(){
+      this.setState({open:false})
   }
   render() {
     const { level, changeLevel } = this.props;
@@ -57,7 +61,7 @@ export default class Navbar extends Component {
           message={<span id="message-id">Format Changed!</span>}
           ContentProps={{"aria-describedby": "message-id"}}
           action={[
-              <IconButton>
+              <IconButton onClick={this.closeSnackbar}>
                 <CloseIcon/>
               </IconButton>
           ]}
