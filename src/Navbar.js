@@ -14,7 +14,7 @@ export default class Navbar extends Component {
     super(props);
     this.state = { format: "hex", open: "true" };
     this.handleChange = this.handleChange.bind(this);
-    this.closeSnackbar = this.closeSnackbar.bind(this)
+    this.closeSnackbar = this.closeSnackbar.bind(this);
   }
   handleChange(e) {
     this.setState({ format: e.target.value });
@@ -23,8 +23,8 @@ export default class Navbar extends Component {
     // to wrap the this.props.handlechange in a setimeout
     this.props.handleChange(e.target.value);
   }
-  closeSnackbar(){
-      this.setState({open:false})
+  closeSnackbar() {
+    this.setState({ open: false });
   }
   render() {
     const { level, changeLevel } = this.props;
@@ -59,11 +59,17 @@ export default class Navbar extends Component {
           open={open}
           autoHideDuration={3000}
           message={<span id="message-id">Format Changed!</span>}
-          ContentProps={{"aria-describedby": "message-id"}}
+          ContentProps={{ "aria-describedby": "message-id" }}
+          onClose={this.closeSnackbar}
           action={[
-              <IconButton onClick={this.closeSnackbar}>
-                <CloseIcon/>
-              </IconButton>
+            <IconButton
+              onClick={this.closeSnackbar}
+              color="inherit"
+              key="close"
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>,
           ]}
         />
       </header>
