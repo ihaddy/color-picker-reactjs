@@ -12,12 +12,12 @@ import React, { Component } from "react";
 export default class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { format: "hex", open: "true" };
-    this.handleChange = this.handleChange.bind(this);
+    this.state = { format: "hex", open: "false" };
+    this.handleChange = this.handleColorFormatChange.bind(this);
     this.closeSnackbar = this.closeSnackbar.bind(this);
   }
-  handleChange(e) {
-    this.setState({ format: e.target.value });
+  handleColorFormatChange(e) {
+    this.setState({ format: e.target.value, open: true });
     //if you opt to use state right away by passing in this.state, it will not have updated in time
     //therefore using e.target.value that we just passed in for state is more immediate and prevents having to use a callback function
     // to wrap the this.props.handlechange in a setimeout
@@ -48,7 +48,7 @@ export default class Navbar extends Component {
           </div>
         </div>
         <div className="select-container">
-          <Select value={format} onChange={this.handleChange}>
+          <Select value={format} onChange={this.handleColorFormatChange}>
             <MenuItem value="hex">HEX - #ffffff</MenuItem>
             <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
             <MenuItem value="rgba">RGBA - rgba(255,255,255, 1.0) </MenuItem>
@@ -58,7 +58,7 @@ export default class Navbar extends Component {
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={open}
           autoHideDuration={3000}
-          message={<span id="message-id">Format Changed!</span>}
+          message={<span id="message-id">Format Changed to {format.toUpperCase}!</span>}
           ContentProps={{ "aria-describedby": "message-id" }}
           onClose={this.closeSnackbar}
           action={[
