@@ -1,7 +1,7 @@
 import Palette from "./Palette";
 import seedColors from "./seedColors";
 import generatePalette from "./chromaHelpers";
-import { Route, Routes, useParams, useLocation, useNavigate } from "react-router-dom";
+import { Route, Switch, } from "react-router-dom";
 
 function App() {
   // console.log(generatePalette(seedColors[1]));
@@ -17,22 +17,22 @@ function App() {
 
   return (
     //react router v6 functionality replaces render with element, using the old render{() => <h1>} test syntax is broken
-    <Routes>
+    <Switch>
       <Route
         exact
         path="/"
-        element={<Palette palette={generatePalette(seedColors[4])} />}
+        render={() => <Palette palette={generatePalette(seedColors[4])} />}
       />
       <Route
         exact
         path="/palette/:id"
-        element={withRouter(<Palette params={params}
-            palette={generatePalette(findPalette(params))}
+        render={(routeProps) => <Palette 
+            palette={generatePalette(findPalette(routeProps.match.params.id))}
           />
-        )}
+        }
       />
       {/* <NoMatch render={() => <Palette palette={generatePalette(seedColors[4])}/>}/> */}
-    </Routes>
+    </Switch>
   );
 }
 
