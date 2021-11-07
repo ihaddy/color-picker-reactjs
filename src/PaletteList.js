@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link, History } from "react-router-dom";
 import MiniPalette from "./MiniPalette";
 import withStyles from "@material-ui/styles/withStyles";
 
@@ -33,6 +33,18 @@ const styles = {
   },
 };
 class PaletteList extends Component {
+
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             
+        }
+    }
+    
+  goToPalette(id) {
+        this.props.history.push(`/palette/${id}`)
+    }
   render() {
     const { palettes, classes } = this.props;
     return (
@@ -43,10 +55,9 @@ class PaletteList extends Component {
           </nav>
           <div className={classes.palettes}>
             {palettes.map((palette) => (
-                <Link to={`/palette/${palette.id}`}>
-                    
-                <MiniPalette {...palette} />
-                </Link>
+                 //using arrow function for goToPalette to bind it this way, not ideal
+                <MiniPalette {...palette} handleClick={ () => this.goToPalette(palette.id)}/>
+
             ))}
           </div>
         </div>
