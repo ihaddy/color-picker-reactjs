@@ -60,7 +60,7 @@ jobs:
           tags: |
             ihaddy/color-picker-reactjs:latest
             ghcr.io/ihaddy/color-picker-reactjs:latest
-            color-picker-reactjs:latest
+            863600477985.dkr.ecr.us-east-1.amazonaws.com/color-picker-reactjs:latest
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
 
