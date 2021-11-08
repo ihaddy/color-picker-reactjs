@@ -50,7 +50,7 @@
       }
     ],
     "placementConstraints": [],
-    "memory": "1024",
+    "memory": "900",
     "taskRoleArn": null,
     "compatibilities": [
       "EXTERNAL",
