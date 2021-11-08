@@ -44,7 +44,8 @@ jobs:
           context: ./
           # Note: tags has to be all lower-case
           tags: |
-            latest 
+            ihaddy/color-picker-reactjs:latest
+            ghcr.io/ihaddy/color-picker-reactjs:latest
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
 
