@@ -56,7 +56,7 @@
       "EXTERNAL",
       "EC2"
     ],
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:863600477985:task-definition/ecs-color-picker-reactjs-task-definition:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:863600477985:task-definition/ecs-color-picker-reactjs-task-definition:6",
     "family": "ecs-color-picker-reactjs-task-definition",
     "requiresAttributes": [
       {
@@ -72,8 +72,8 @@
     ],
     "networkMode": null,
     "runtimePlatform": null,
-    "cpu": "800",
-    "revision": 1,
+    "cpu": "600",
+    "revision": 6,
     "status": "ACTIVE",
     "inferenceAccelerators": null,
     "proxyConfiguration": null,
