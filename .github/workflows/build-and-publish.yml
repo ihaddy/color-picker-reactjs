@@ -70,7 +70,7 @@ jobs:
         with:
           task-definition: aws-ecs-task-definition.json
           container-name: color-picker-reactjs
-          image: ${{ steps.build-image.outputs.image }}
+          image: 863600477985.dkr.ecr.us-east-1.amazonaws.com/color-picker-reactjs:latest
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e
