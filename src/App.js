@@ -3,6 +3,7 @@ import seedColors from "./seedColors";
 import PaletteList from "./PaletteList";
 import generatePalette from "./chromaHelpers";
 import SingleColorPalette from "./SingleColorPalette";
+import NewPaletteForm from "./NewPaletteForm";
 import { Route, Switch, } from "react-router-dom";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   return (
     //react router v6 functionality replaces render with element, using the old render{() => <h1>} test syntax is broken
     <Switch>
+      <Route exact path="/palette/new" render={() => <NewPaletteForm />}/>
       <Route
         exact
         path="/"
