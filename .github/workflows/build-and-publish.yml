@@ -76,7 +76,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: reactjs-test-service
+          service: reactjs-cluster
           cluster: reactjs-test-cluster
           wait-for-service-stability: true
 
