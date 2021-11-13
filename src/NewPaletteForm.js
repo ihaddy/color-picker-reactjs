@@ -83,8 +83,9 @@ class NewPaletteForm extends Component {
     this.state = {
       open: true,
       currentColor: "teal",
-      newName: "",
+      newColorName: "",
       colors: [],
+      newPaletteName: "",
     };
     this.updateCurrentColor = this.updateCurrentColor.bind(this);
     this.addNewColor = this.addNewColor.bind(this);
@@ -113,7 +114,9 @@ class NewPaletteForm extends Component {
     this.setState({ open: false });
   };
   handleChange(evt) {
-    this.setState({ newName: evt.target.value });
+    this.setState({
+        [evt.target.name]: evt.target.value
+    });
   }
 
   updateCurrentColor(newColor) {
@@ -122,18 +125,21 @@ class NewPaletteForm extends Component {
   addNewColor() {
     const newColor = {
       color: this.state.currentColor,
-      name: this.state.newName,
+      name: this.state.newColorName,
     };
-    //setting newname blank on addnewcolor is the equivalent of an onsubmit clear codeblock to reset input after submission
-    this.setState({ colors: [...this.state.colors, newColor], newName: "" });
+    //setting newColorname blank on addnewcolor is the equivalent of an onsubmit clear codeblock to reset input after submission
+    this.setState({
+      colors: [...this.state.colors, newColor],
+      newColorName: "",
+    });
   }
 
   savePalette() {
-    let newName = "New Test Palette";
+    let newColorName = this.state.newPaletteName;
     const newPalette = {
-      paletteName: newName,
+      paletteName: newColorName,
       colors: this.state.colors,
-      id: newName.toLowerCase().replace(/ /g, "-"),
+      id: newColorName.toLowerCase().replace(/ /g, "-"),
     };
     this.props.savePalette(newPalette);
     this.props.history.push("/");
@@ -164,14 +170,24 @@ class NewPaletteForm extends Component {
             <Typography variant="h6" color="inherit" noWrap>
               Persistent drawer
             </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.savePalette}
-            >
-              {" "}
-              Save Palette
-            </Button>
+            <ValidatorForm onSubmit={this.savePalette}>
+
+                <TextValidator
+                label="Palette Name"
+                value={this.state.newPaletteName}
+                name="newPaletteName"
+                onChange={this.handleChange}
+                />
+                <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+               
+                >
+               
+                Save Palette
+                </Button>
+            </ValidatorForm>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -204,7 +220,8 @@ class NewPaletteForm extends Component {
           />
           <ValidatorForm onSubmit={this.addNewColor}>
             <TextValidator
-              value={this.state.newName}
+              value={this.state.newColorName}
+              name="newColorName"
               onChange={this.handleChange}
               validators={["required", "isColorNameUnique", "isColorUnique"]}
               errorMessages={[
