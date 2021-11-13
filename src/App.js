@@ -6,32 +6,45 @@ import SingleColorPalette from "./SingleColorPalette";
 import NewPaletteForm from "./NewPaletteForm";
 import { Route, Switch, } from "react-router-dom";
 
-function App() {
-  // console.log(generatePalette(seedColors[1]));
+import React, { Component } from 'react'
 
+export default class App extends Component {
 
- 
-  
-  function findPalette(id) {
-    return seedColors.find(function (palette) {
-      return palette.id === id;
-    });
+constructor(props) {
+  super(props)
+
+  this.state = {
+   palettes: seedColors,
   }
+  this.savePalette = this.savePalette.bind(this)
+  this.findPalette = this.findPalette.bind(this)
+}
 
-  return (
-    //react router v6 functionality replaces render with element, using the old render{() => <h1>} test syntax is broken
-    <Switch>
-      <Route exact path="/palette/new" render={() => <NewPaletteForm />}/>
+savePalette(newPalette){
+    console.log(newPalette)
+    this.setState({palettes: [...this.state.palettes, newPalette]})
+     } 
+findPalette(id) {
+  return this.state.palettes.find(function (palette) {
+    return palette.id === id;
+  });
+  }
+  render() {
+  
+    return (
+      <div>
+      <Switch>
+      <Route exact path="/palette/new" render={(routeProps) => <NewPaletteForm savePalette={this.savePalette} {...routeProps}/>}/>
       <Route
         exact
         path="/"
-        render={(routeProps) => <PaletteList palettes={seedColors} {...routeProps}/>}
+        render={(routeProps) => <PaletteList palettes={this.state.palettes} {...routeProps}/>}
       />
       <Route
         exact
         path="/palette/:id"
         render={(routeProps) => <Palette 
-            palette={generatePalette(findPalette(routeProps.match.params.id))}
+            palette={generatePalette(this.findPalette(routeProps.match.params.id))}
           />
         }
       />
@@ -40,14 +53,16 @@ function App() {
         exact
         path="/palette/:paletteId/:colorId"
         render={(routeProps) => <SingleColorPalette 
-            palette={generatePalette(findPalette(routeProps.match.params.paletteId))}
+            palette={generatePalette(this.findPalette(routeProps.match.params.paletteId))}
             colorId={routeProps.match.params.colorId}
           />
         }
       />
       {/* <Route path="/palette/:paletteId/:colorId" render={() => <SingleColorPalette />}/> */}
     </Switch>
-  );
+      </div>
+    )
+  }
 }
 
-export default App;
+

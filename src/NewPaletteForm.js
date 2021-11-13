@@ -89,6 +89,7 @@ class NewPaletteForm extends Component {
     this.updateCurrentColor = this.updateCurrentColor.bind(this);
     this.addNewColor = this.addNewColor.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.savePalette = this.savePalette.bind(this);
   }
   componentDidMount() {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) =>
@@ -97,10 +98,11 @@ class NewPaletteForm extends Component {
       )
     );
     ValidatorForm.addValidationRule("isColorUnique", (value) =>
-    this.state.colors.every(
-      ({ color }) => color.toLowerCase() !== this.state.currentColor.toLowerCase()
-    )
-  );
+      this.state.colors.every(
+        ({ color }) =>
+          color.toLowerCase() !== this.state.currentColor.toLowerCase()
+      )
+    );
   }
 
   handleDrawerOpen = () => {
@@ -125,6 +127,17 @@ class NewPaletteForm extends Component {
     //setting newname blank on addnewcolor is the equivalent of an onsubmit clear codeblock to reset input after submission
     this.setState({ colors: [...this.state.colors, newColor], newName: "" });
   }
+
+  savePalette() {
+    let newName = "New Test Palette";
+    const newPalette = {
+      paletteName: newName,
+      colors: this.state.colors,
+      id: newName.toLowerCase().replace(/ /g, "-"),
+    };
+    this.props.savePalette(newPalette);
+    this.props.history.push("/");
+  }
   render() {
     const { classes } = this.props;
     const { open, currentColor } = this.state;
@@ -137,6 +150,7 @@ class NewPaletteForm extends Component {
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open,
           })}
+          color="default"
         >
           <Toolbar disableGutters={!open}>
             <IconButton
@@ -150,6 +164,14 @@ class NewPaletteForm extends Component {
             <Typography variant="h6" color="inherit" noWrap>
               Persistent drawer
             </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.savePalette}
+            >
+              {" "}
+              Save Palette
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -188,15 +210,15 @@ class NewPaletteForm extends Component {
               errorMessages={[
                 "this field is required",
                 "That color name is taken. Color name must be unique!",
-                "Color already in use!"
+                "Color already in use!",
               ]}
             />
             <Button
               variant="contained"
               color="primary"
               style={{ backgroundColor: currentColor }}
-            //The button has an onClick method that bypass the validator form. Remove that method and set the button to type="submit" and it should work.
-            //   onClick={this.addNewColor}
+              //The button has an onClick method that bypass the validator form. Remove that method and set the button to type="submit" and it should work.
+              //   onClick={this.addNewColor}
               type="submit"
             >
               Add Color
