@@ -71,14 +71,19 @@ class PaletteFormNav extends Component {
 
     this.state = {
       newPaletteName: "",
+      formShowing: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.showForm = this.showForm.bind(this)
   }
 
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value,
     });
+  }
+  showForm(){
+    this.setState({formShowing: true})
   }
   render() {
     const { classes, open } = this.props;
@@ -107,15 +112,19 @@ class PaletteFormNav extends Component {
             
           </Toolbar>
           <div className={classes.navBtns}>
-           
-            <PaletteMetaForm palettes={this.props.palettes} savePalette={this.props.savePalette}/>
+          
+            
             <Link to="/">
                 <Button variant="contained" color="secondary">
                   Go Back
                 </Button>
             </Link>
+            <Button variant="contained" color="primary" type='submit'>
+              Save
+            </Button>
             </div>
         </AppBar>
+        <PaletteMetaForm palettes={this.props.palettes} savePalette={this.props.savePalette}/>
       </div>
     );
   }
