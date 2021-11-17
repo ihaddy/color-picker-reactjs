@@ -10,8 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import sizes from "./sizes";
+import PaletteMetaForm from "./PaletteMetaForm";
 import { Button } from "@material-ui/core";
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 
 
 
@@ -74,13 +74,7 @@ class PaletteFormNav extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  componentDidMount() {
-    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
-      this.props.palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      )
-    );
-  }
+
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value,
@@ -113,25 +107,8 @@ class PaletteFormNav extends Component {
             
           </Toolbar>
           <div className={classes.navBtns}>
-            <ValidatorForm
-              onSubmit={() => this.props.savePalette(this.state.newPaletteName)}
-            >
-              <TextValidator
-                label="Palette Name"
-                value={this.state.newPaletteName}
-                name="newPaletteName"
-                onChange={this.handleChange}
-                validators={["required", "isPaletteNameUnique"]}
-                errorMessages={[
-                  "Please enter a Palette Name!",
-                  "Palette Name Already In Use!",
-                ]}
-              />
-              <Button variant="contained" color="primary" type="submit">
-                Save Palette
-              </Button>
-             
-            </ValidatorForm>
+           
+            <PaletteMetaForm palettes={this.props.palettes} savePalette={this.props.savePalette}/>
             <Link to="/">
                 <Button variant="contained" color="secondary">
                   Go Back
@@ -145,4 +122,3 @@ class PaletteFormNav extends Component {
 }
 
 export default withStyles(styles, { withTheme: true })(PaletteFormNav);
-// export default PaletteFormNav
