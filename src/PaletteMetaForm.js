@@ -14,7 +14,7 @@ export default class PaletteMetaForm extends Component {
       super(props)
   
       this.state = {
-           open: false,
+           open: true,
            newPaletteName: ""
       }
       this.handleChange = this.handleChange.bind(this)
@@ -44,10 +44,11 @@ export default class PaletteMetaForm extends Component {
       render() {
         return (
      
-            
+            //the dialog component "on close" in MUI is called when you click AWAY from the dialog box
+            // so if you click out of focus, it'll call thee hideform method and hide it
             <Dialog
               open={this.state.open}
-              onClose={this.handleClose}
+              onClose={this.props.hideForm}
               aria-labelledby="form-dialog-title"
             >
               <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
@@ -76,7 +77,7 @@ export default class PaletteMetaForm extends Component {
              
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
+                <Button onClick={this.props.hideForm} color="primary">
                   Cancel
                 </Button>
                 <Button variant="contained" color="primary" type="submit">
