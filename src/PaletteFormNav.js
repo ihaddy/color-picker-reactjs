@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { withStyles } from "@material-ui/core/styles"
+import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,58 +13,55 @@ import sizes from "./sizes";
 import PaletteMetaForm from "./PaletteMetaForm";
 import { Button } from "@material-ui/core";
 
-
-
 const drawerWidth = 400;
 
-const styles = theme => ({
-    root: {
-      display: "flex"
+const styles = (theme) => ({
+  root: {
+    display: "flex",
+  },
+  hide: {
+    display: "none",
+  },
+  appBar: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "64px",
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 20,
+  },
+  navBtns: {
+    marginRight: "1rem",
+    "& a": {
+      textDecoration: "none",
     },
-    hide: {
-      display: "none"
+    [sizes.down("xs")]: {
+      marginRight: "0.5rem",
     },
-    appBar: {
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      }),
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      height: "64px"
+  },
+  button: {
+    margin: "0 0.5rem",
+    [sizes.down("xs")]: {
+      margin: "0 0.2rem",
+      padding: "0.3rem",
     },
-    appBarShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
-      })
-    },
-    menuButton: {
-      marginLeft: 12,
-      marginRight: 20
-    },
-    navBtns: {
-      marginRight: "1rem",
-      "& a": {
-        textDecoration: "none"
-      },
-      [sizes.down("xs")]: {
-        marginRight: "0.5rem"
-      }
-    },
-    button: {
-      margin: "0 0.5rem",
-      [sizes.down("xs")]: {
-        margin: "0 0.2rem",
-        padding: "0.3rem"
-      }
-    }
-  });
-  
-   
+  },
+});
+
 class PaletteFormNav extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +71,8 @@ class PaletteFormNav extends Component {
       formShowing: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.showForm = this.showForm.bind(this)
+    this.showForm = this.showForm.bind(this);
+    this.hideForm = this.hideForm.bind(this);
   }
 
   handleChange(evt) {
@@ -82,8 +80,11 @@ class PaletteFormNav extends Component {
       [evt.target.name]: evt.target.value,
     });
   }
-  showForm(){
-    this.setState({formShowing: true})
+  showForm() {
+    this.setState({ formShowing: true });
+  }
+  hideForm() {
+    this.setState({ formShowing: false });
   }
   render() {
     const { classes, open } = this.props;
@@ -109,22 +110,34 @@ class PaletteFormNav extends Component {
             <Typography variant="h6" color="inherit" noWrap>
               Create A Palette
             </Typography>
-            
           </Toolbar>
           <div className={classes.navBtns}>
-          
-            
             <Link to="/">
-                <Button variant="contained" color="secondary">
-                  Go Back
-                </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+              >
+                Go Back
+              </Button>
             </Link>
-            <Button variant="contained" color="primary" type='submit'>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.showForm}
+              className={classes.button}
+            >
               Save
             </Button>
-            </div>
+          </div>
         </AppBar>
-        <PaletteMetaForm palettes={this.props.palettes} savePalette={this.props.savePalette}/>
+        {this.state.formShowing && (
+          <PaletteMetaForm
+            hideForm={this.hideForm}
+            palettes={this.props.palettes}
+            savePalette={this.props.savePalette}
+          />
+        )}
       </div>
     );
   }
