@@ -6,7 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import { Picker } from 'emoji-mart';
+import "emoji-mart/css/emoji-mart.css"
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 
 export default class PaletteMetaForm extends Component {
@@ -43,7 +44,10 @@ export default class PaletteMetaForm extends Component {
       
       render() {
         return (
-     
+            <div>
+            <Dialog>
+                <Picker/>
+            </Dialog>
             //the dialog component "on close" in MUI is called when you click AWAY from the dialog box
             // so if you click out of focus, it'll call thee hideform method and hide it
             <Dialog
@@ -59,6 +63,7 @@ export default class PaletteMetaForm extends Component {
                 <DialogContentText>
                   Please enter a unique name for your new palette!
                 </DialogContentText>
+                
               
               <TextValidator
                 label="Palette Name"
@@ -86,6 +91,7 @@ export default class PaletteMetaForm extends Component {
               </DialogActions>
             </ValidatorForm>
             </Dialog>
+            </div>
         );
       }
     }
