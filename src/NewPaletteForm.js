@@ -48,7 +48,7 @@ const styles = (theme) => ({
   drawerPaper: {
     width: drawerWidth,
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   drawerHeader: {
     display: "flex",
@@ -74,19 +74,18 @@ const styles = (theme) => ({
     }),
     marginLeft: 0,
   },
-  container:{
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'stretch',
-    flexDirection: 'column',
-    justifyContent: 'center',
+  container: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "stretch",
+    flexDirection: "column",
+    justifyContent: "center",
     paddingLeft: "10px",
     paddingRight: "10px",
-
   },
-  buttons: {width: "100%"},
-  button: {width: "50%"}
+  buttons: { width: "100%" },
+  button: { width: "50%" },
 });
 
 class NewPaletteForm extends Component {
@@ -193,7 +192,14 @@ class NewPaletteForm extends Component {
           </div>
           <Divider />
           <div className={classes.container}>
-            <Typography style={{alignSelf: "center"}}variant="h4" gutterBottom> Design Your Palette!</Typography>
+            <Typography
+              style={{ alignSelf: "center" }}
+              variant="h4"
+              gutterBottom
+            >
+              {" "}
+              Design Your Palette!
+            </Typography>
             <div className={classes.buttons}>
               <Button
                 variant="contained"
