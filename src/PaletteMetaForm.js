@@ -60,7 +60,11 @@ export default class PaletteMetaForm extends Component {
         <Dialog
           aria-labelledby="emoji-form-dialog-title"
           open={this.state.stage === "emoji"}
+          
         >
+        <DialogTitle id="form-dialog-title">
+        Please Select an Emoji!
+        </DialogTitle>
           <Picker onSelect={this.savePalette} />
         </Dialog>
         {/* //the dialog component "on close" in MUI is called when you click AWAY
