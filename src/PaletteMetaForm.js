@@ -17,8 +17,11 @@ export default class PaletteMetaForm extends Component {
     this.state = {
       open: true,
       newPaletteName: "",
+      stage: "form",
     };
     this.handleChange = this.handleChange.bind(this);
+    this.showEmojiPicker = this.showEmojiPicker.bind(this);
+    this.savePalette = this.savePalette.bind(this);
   }
 
   handleClickOpen = () => {
@@ -40,27 +43,38 @@ export default class PaletteMetaForm extends Component {
       [evt.target.name]: evt.target.value,
     });
   }
+  showEmojiPicker() {
+    this.setState({ stage: "emoji" });
+  }
+  savePalette(emoji) {
+    const newPalette = {
+      paletteName: this.state.newPaletteName,
+      emoji: emoji.native,
+    };
+    this.props.savePalette(newPalette);
+  }
 
   render() {
     return (
       <div>
-        <Dialog aria-labelledby="emoji-form-dialog-title">
-          <Picker />
+        <Dialog
+          aria-labelledby="emoji-form-dialog-title"
+          open={this.state.stage === "emoji"}
+        >
+          <Picker onSelect={this.savePalette} />
         </Dialog>
         {/* //the dialog component "on close" in MUI is called when you click AWAY
         from the dialog box // so if you click out of focus, it'll call thee
         hideform method and hide it */}
         <Dialog
-          open={this.state.open}
+          open={this.state.stage === "form"}
           onClose={this.props.hideForm}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
             Choose a Palette Name
           </DialogTitle>
-          <ValidatorForm
-            onSubmit={() => this.props.savePalette(this.state.newPaletteName)}
-          >
+          <ValidatorForm onSubmit={this.showEmojiPicker}>
             <DialogContent>
               <DialogContentText>
                 Please enter a unique name for your new palette!
