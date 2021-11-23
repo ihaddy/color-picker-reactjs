@@ -35,7 +35,9 @@ class PaletteList extends Component {
                 color="secondary"
                 variant="contained"
               >
-                 {this.props.isDeleteToggled ? 'UnToggle Delete' : "Delete a Palette"}
+                {this.props.isDeleteToggled
+                  ? "UnToggle Delete"
+                  : "Delete a Palette"}
               </Button>
               <Button color="primary" variant="contained">
                 <Link to="/palette/new"> Create Palette</Link>

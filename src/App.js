@@ -15,7 +15,7 @@ export default class App extends Component {
     const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
     
     this.state = {
-      deletePalettes: true, 
+      deletePalettes: false, 
       palettes: savedPalettes || seedColors
     };
 
@@ -70,9 +70,9 @@ export default class App extends Component {
   reloadDefaults(){
   
     this.setState(
-      {palettes: this.onlyUniquePalettes(seedColors.concat(this.state.palettes))}
+      {palettes: this.onlyUniquePalettes(seedColors.concat(this.state.palettes))}, window.localStorage.removeItem("palettes")
       )
-      window.localStorage.removeItem("palettes")
+      
   }
   render() {
     return (

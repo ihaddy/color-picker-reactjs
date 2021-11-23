@@ -1,10 +1,15 @@
+import bg from "./background.svg"
 const styles = {
     root: {
-      backgroundColor: "blue",
+      //background image url provided by svgbackgrounds.com//
+      backgroundImage: `url(${bg})`,
       height: "100vh",
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "center",
+      //viewheight not working properly when additional content added, the below 2 css styles fixed it//
+      backgroundRepeat: "repeat",
+      overflowY: 'scroll',
     },
     container: {
       width: "50%",
