@@ -1,4 +1,17 @@
 const styles = {
+  '@keyframes shake': {
+    "0%": { transform: "translate(1px, 1px) rotate(0deg)" },
+    "10%": { transform: "translate(-1px, -2px) rotate(-1deg)" },
+    "20%":{ transform: "translate(-3px, 0px) rotate(1deg)" },
+    "30%": { transform: "translate(3px, 2px) rotate(0deg)" },
+    "40%": { transform: "translate(1px, -1px) rotate(1deg)" },
+    "50%": { transform: "translate(-1px, 2px) rotate(-1deg)" },
+    "60%": { transform: "translate(-3px, 1px) rotate(0deg)" },
+    "70%": { transform: "translate(3px, 1px) rotate(-1deg)" },
+    "80%": { transform: "translate(-1px, -1px) rotate(1deg)" },
+    "90%": { transform: "translate(1px, 2px) rotate(0deg)" },
+    "100%": { transform: "translate(1px, -2px) rotate(-1deg)" },
+  },
   root: {
     height: "fit-content",
     backgroundColor: "white",
@@ -8,11 +21,15 @@ const styles = {
     position: "relative",
     overflow: "hidden",
     cursor: "pointer",
-    transition: "all 0.3s ease-in-out",
+  
+    
+    
     
     "&:hover $deleteIcon": {
       opacity: 1,
-      transition: "all 0.3s ease-in-out"
+      
+      animation: "$shake 0.5s",
+      animationIterationCount: 'infinite',
     },
   },
   colors: {
@@ -54,8 +71,9 @@ const styles = {
     top: "0px",
     padding: "10px",
     zIndex: 10,
-    opacity: 0,
-    transition: "all 0.3s ease-in-out"
+    opacity: 1,
+    animation: "shake 0.5s",
+    animationIterationCount: 'infinite',
   }
 };
 

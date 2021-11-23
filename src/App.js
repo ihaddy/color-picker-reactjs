@@ -7,7 +7,7 @@ import NewPaletteForm from "./NewPaletteForm";
 import { Route, Switch } from "react-router-dom";
 
 import React, { Component } from "react";
-import { ThreeDRotationSharp } from "@material-ui/icons";
+
 
 export default class App extends Component {
   constructor(props) {
@@ -15,13 +15,15 @@ export default class App extends Component {
     const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
     
     this.state = {
-      palettes: savedPalettes || seedColors 
+      deletePalettes: true, 
+      palettes: savedPalettes || seedColors
     };
 
     this.savePalette = this.savePalette.bind(this);
     this.findPalette = this.findPalette.bind(this);
     this.deletePalette = this.deletePalette.bind(this);
     this.reloadDefaults = this.reloadDefaults.bind(this)
+    this.toggleDeletePalettes = this.toggleDeletePalettes.bind(this)
   }
   deletePalette(id) {
     this.setState(
@@ -60,6 +62,11 @@ export default class App extends Component {
       return palette.id === id;
     });
   }
+  toggleDeletePalettes(){
+    this.setState( prevState => ({
+      deletePalettes: !prevState.deletePalettes
+    }));
+  }
   reloadDefaults(){
   
     this.setState(
@@ -91,6 +98,8 @@ export default class App extends Component {
                 {...routeProps}
                 deletePalette={this.deletePalette}
                 reloadDefaults={this.reloadDefaults}
+                toggleDeletePalettes={this.toggleDeletePalettes}
+                isDeleteToggled={this.state.deletePalettes}
               />
             )}
           />

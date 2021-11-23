@@ -30,6 +30,13 @@ class PaletteList extends Component {
               >
                 Reload Defaults
               </Button>
+              <Button
+                onClick={this.props.toggleDeletePalettes}
+                color="secondary"
+                variant="contained"
+              >
+                 {this.props.isDeleteToggled ? 'UnToggle Delete' : "Delete a Palette"}
+              </Button>
               <Button color="primary" variant="contained">
                 <Link to="/palette/new"> Create Palette</Link>
               </Button>
@@ -44,6 +51,7 @@ class PaletteList extends Component {
                 deletePalette={this.props.deletePalette}
                 key={palette.id}
                 id={palette.id}
+                isDeleteToggled={this.props.isDeleteToggled}
               />
             ))}
           </div>
