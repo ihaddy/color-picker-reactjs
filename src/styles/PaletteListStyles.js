@@ -24,6 +24,9 @@ const styles = {
         color: "white"
       }
     },
+    navButtons:{
+      display: "flex",
+    },
     palettes: {
       boxSize: "border-box",
       width: "100%",

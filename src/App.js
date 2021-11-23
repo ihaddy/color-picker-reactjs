@@ -7,31 +7,65 @@ import NewPaletteForm from "./NewPaletteForm";
 import { Route, Switch } from "react-router-dom";
 
 import React, { Component } from "react";
+import { ThreeDRotationSharp } from "@material-ui/icons";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"))
+    const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+    
     this.state = {
-
-      palettes: savedPalettes || seedColors,
+      palettes: savedPalettes || seedColors 
     };
+
     this.savePalette = this.savePalette.bind(this);
     this.findPalette = this.findPalette.bind(this);
-    
+    this.deletePalette = this.deletePalette.bind(this);
+    this.reloadDefaults = this.reloadDefaults.bind(this)
   }
-
+  deletePalette(id) {
+    this.setState(
+      (oldstate) => ({
+        palettes: oldstate.palettes.filter((palette) => palette.id !== id),
+      }),
+      this.syncLocalStorage
+    );
+  }
   savePalette(newPalette) {
     console.log(newPalette);
-    this.setState({ palettes: [...this.state.palettes, newPalette] }, this.syncLocalStorage);
+    this.setState(
+      { palettes: [...this.state.palettes, newPalette] },
+      this.syncLocalStorage
+    );
   }
-  syncLocalStorage(){
-    window.localStorage.setItem("palettes", JSON.stringify(this.state.palettes))
+  syncLocalStorage() {
+    window.localStorage.setItem(
+      "palettes",
+      JSON.stringify(this.state.palettes)
+    );
   }
+  onlyUniquePalettes(array) {
+    var a = array.concat();
+    for(var i=0; i<a.length; ++i) {
+        for(var j=i+1; j<a.length; ++j) {
+            if(a[i] === a[j])
+                a.splice(j--, 1);
+        }
+    }
+
+    return a;
+}
   findPalette(id) {
     return this.state.palettes.find(function (palette) {
       return palette.id === id;
     });
+  }
+  reloadDefaults(){
+  
+    this.setState(
+      {palettes: this.onlyUniquePalettes(seedColors.concat(this.state.palettes))}
+      )
+      window.localStorage.removeItem("palettes")
   }
   render() {
     return (
@@ -52,7 +86,12 @@ export default class App extends Component {
             exact
             path="/"
             render={(routeProps) => (
-              <PaletteList palettes={this.state.palettes} {...routeProps} />
+              <PaletteList
+                palettes={this.state.palettes}
+                {...routeProps}
+                deletePalette={this.deletePalette}
+                reloadDefaults={this.reloadDefaults}
+              />
             )}
           />
           <Route
