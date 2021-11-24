@@ -4,6 +4,7 @@ import MiniPalette from "./MiniPalette";
 import withStyles from "@material-ui/styles/withStyles";
 import styles from "./styles/PaletteListStyles";
 import { Button } from "@material-ui/core";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 class PaletteList extends Component {
   constructor(props) {
@@ -21,9 +22,10 @@ class PaletteList extends Component {
       <div className={classes.root}>
         <div className={classes.container}>
           <nav className={classes.nav}>
-            <h1>React Color Picker</h1>
+            <h1 className={classes.title}>React Color Picker</h1>
             <div className={classes.navButtons}>
               <Button
+                style={{margin: "5px"}}
                 onClick={this.props.reloadDefaults}
                 color="secondary"
                 variant="contained"
@@ -31,6 +33,7 @@ class PaletteList extends Component {
                 Reload Defaults
               </Button>
               <Button
+                style={{margin: "5px"}}
                 onClick={this.props.toggleDeletePalettes}
                 color="secondary"
                 variant="contained"
@@ -39,24 +42,32 @@ class PaletteList extends Component {
                   ? "UnToggle Delete"
                   : "Delete a Palette"}
               </Button>
-              <Button color="primary" variant="contained">
+              <Button
+                style={{margin: "5px"}}
+                color="primary"
+                variant="contained"
+                className={classes.singleButton}
+              >
                 <Link to="/palette/new"> Create Palette</Link>
               </Button>
             </div>
           </nav>
-          <div className={classes.palettes}>
+
+          <TransitionGroup className={classes.palettes}>
             {palettes.map((palette) => (
-              //using arrow function for goToPalette to bind it this way, not ideal
-              <MiniPalette
-                {...palette}
-                handleClick={() => this.goToPalette(palette.id)}
-                deletePalette={this.props.deletePalette}
-                key={palette.id}
-                id={palette.id}
-                isDeleteToggled={this.props.isDeleteToggled}
-              />
+              <CSSTransition key={palette.id} classNames="fade" timeout={400}>
+                {/* //using arrow function for goToPalette to bind it this way, not ideal// */}
+                <MiniPalette
+                  {...palette}
+                  handleClick={() => this.goToPalette(palette.id)}
+                  deletePalette={this.props.deletePalette}
+                  key={palette.id}
+                  id={palette.id}
+                  isDeleteToggled={this.props.isDeleteToggled}
+                />
+              </CSSTransition>
             ))}
-          </div>
+          </TransitionGroup>
         </div>
       </div>
     );
