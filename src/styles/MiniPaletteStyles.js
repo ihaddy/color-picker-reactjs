@@ -60,6 +60,7 @@ const styles = {
   deleteIcon: {
     color: "white",
     backgroundColor: "#eb3d30",
+    boxSizing: "initial",
     width: "40px",
     height: "40px",
     position: "absolute",

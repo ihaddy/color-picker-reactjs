@@ -1,7 +1,7 @@
 const styles = {
     paletteFooter: {
       backgroundColor: 'white',
-      height: '5vh',
+      height: '4vh',
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',

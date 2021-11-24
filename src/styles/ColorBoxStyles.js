@@ -16,10 +16,12 @@ const styles = {
     }, 
     boxContent: {
         position: 'absolute',
-        width: '100%',
-        left: "0px",
-        bottom: "0px",
-        padding: "10px",
+        width: '100% - 10px',
+        left: "10px",
+        bottom: "10px",
+        // leaving as a reference, the padding here caused overflow into other components and off the screen creating a
+        // horizontal scroll bar, had to replace padding with just positioning
+        // padding: "10px",
         color: 'black',
         letterSpacing: "1px",
         textTransform: 'uppercase',

@@ -28,7 +28,7 @@ const styles = {
     justifyContent: "center",
     // viewheight not working properly when additional content added, the below 2 css styles fixed it//
     backgroundRepeat: "repeat",
-    overflowY: "scroll",
+    overflowY: "auto",
   },
   container: {
     width: "50%",
