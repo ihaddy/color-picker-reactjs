@@ -3,18 +3,40 @@ import { Link } from "react-router-dom";
 import MiniPalette from "./MiniPalette";
 import withStyles from "@material-ui/styles/withStyles";
 import styles from "./styles/PaletteListStyles";
-import { Button } from "@material-ui/core";
+import { Avatar, Button, List, ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { blue, red } from "@material-ui/core/colors";
+import { Check, Close  } from "@material-ui/icons";
 class PaletteList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      openDeleteDialog: false,
+      idForDeletedPalette: ""
+    };
+    this.toggleDialog = this.toggleDialog.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
+  toggleDialog(id){
 
+    this.setState({
+      openDeleteDialog: !this.state.openDeleteDialog,
+      idForDeletedPalette: id
+    })
+  }
   goToPalette(id) {
     this.props.history.push(`/palette/${id}`);
+  }
+  handleDelete(){
+    this.props.deletePalette(this.state.idForDeletedPalette)
+    this.setState({idForDeletedPalette: ""})
+    this.toggleDialog()
   }
   render() {
     const { palettes, classes } = this.props;
@@ -60,7 +82,8 @@ class PaletteList extends Component {
                 <MiniPalette
                   {...palette}
                   handleClick={() => this.goToPalette(palette.id)}
-                  deletePalette={this.props.deletePalette}
+                  // deletePalette={this.props.deletePalette}
+                  openDialog={this.toggleDialog}
                   key={palette.id}
                   id={palette.id}
                   isDeleteToggled={this.props.isDeleteToggled}
@@ -69,6 +92,27 @@ class PaletteList extends Component {
             ))}
           </TransitionGroup>
         </div>
+        <Dialog ariea-labelledby="delete-dialog-title" open={this.state.openDeleteDialog} onClose={this.toggleDialog}>
+          <DialogTitle id="delete-dialog-title"> Confirm Delete?</DialogTitle>
+          <List>
+            <ListItem button onClick={this.handleDelete}>
+              <ListItemAvatar>
+                  <Avatar style={{backgroundColor: blue[100], color: blue[600]}}>
+                    <Check />
+                  </Avatar>
+              </ListItemAvatar>
+              <ListItemText>Delete</ListItemText>
+            </ListItem>
+            <ListItem button onClick={this.toggleDialog}>
+              <ListItemAvatar>
+                  <Avatar style={{backgroundColor: red[100], color: red[600]}}>
+                    <Close />
+                  </Avatar>
+              </ListItemAvatar>
+              <ListItemText>Cancel</ListItemText>
+            </ListItem>
+          </List>
+        </Dialog>
       </div>
     );
   }
