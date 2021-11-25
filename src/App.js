@@ -143,7 +143,20 @@ export default class App extends Component {
                       </Page>
                     )}
                   />
-                
+                <Route
+                    render={(routeProps) => (
+                      <Page>
+                      <PaletteList
+                        palettes={this.state.palettes}
+                        {...routeProps}
+                        deletePalette={this.deletePalette}
+                        reloadDefaults={this.reloadDefaults}
+                        toggleDeletePalettes={this.toggleDeletePalettes}
+                        isDeleteToggled={this.state.deletePalettes}
+                      />
+                      </Page>
+                    )}
+                  />
                 </Switch>
               </CSSTransition>
             </TransitionGroup>
