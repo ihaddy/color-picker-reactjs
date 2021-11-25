@@ -8,7 +8,7 @@ import { Route, Switch } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import React, { Component } from "react";
 import Page from "./Page.js"
-import "./App.css"
+
 
 
 export default class App extends Component {
