@@ -4,7 +4,7 @@ const styles = {
     position: "fixed",
     width: "100%",
     top: 0,
-    transition: "opacity 0.2s ease-in-out"
+    transition: "opacity 0.3s ease-in-out"
   },
   "@global":{
   ".page-enter":{
@@ -12,11 +12,11 @@ const styles = {
   },
   ".page-enter-active":{
     opacity: 1,
-    transition: "opacity 0.2s ease-in"
+    transition: "opacity 0.3s ease-in"
   },
   ".page-exit-active":{
     opacity: 0,
-    transition: "opacity 0.2 ease-out"
+    transition: "opacity 0.3 ease-out"
   }}
 };
 
